@@ -2,20 +2,15 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.dhf.mvn.account</groupId>
-  <artifactId>account</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <!-- 对于聚合，必须使用packaging为pom，否则无法构建 -->
-  <packaging>pom</packaging>
+  <!--这是一个父模块，由于父模块和聚合模块可以整合到一个pom中，所以这个模块其实时没有用处了，但是当初学习时既然创建了那么就保留着吧，可以发现在聚合中有和这个pom相同的配置-->
 
-  <name>account</name>
-  <modules>
-    <!-- 与module的文件夹名一致而不是artifactId，account-mail文件夹与当前这个pom文件同一级目录，当前pom在account文件夹下，而account-mail也是，
-    所以直接写account-mail就行，如果account文件夹和account-mail同一级，则下面的module需要改成../account-mail，也就是相对当前这个pom的路径-->
-    <module>account-mail</module>
-    <module>account-persist</module>
-  </modules>
-  
+  <groupId>com.dhf.mvn.account</groupId>
+  <artifactId>account-parent</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <!-- 父模块packaging必须为pom，由于父模块目的是消除各个模块之间pom的重复配置，所以只需要这一个pom文件就行了 -->
+  <packaging>pom</packaging>
+  <name>account-parent</name>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <springframework.version>2.5.6</springframework.version>
@@ -42,11 +37,6 @@
         <version>${springframework.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-context-support</artifactId>
-        <version>${springframework.version}</version>
-      </dependency>
-      <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>4.7</version>
@@ -66,7 +56,7 @@
             <skipTests>true</skipTests>
           </configuration>
         </plugin>
-        <!--生成源码jar-->
+      <!--生成源码jar-->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
@@ -100,4 +90,5 @@
       </plugins>
     </pluginManagement>
   </build>
+
 </project>

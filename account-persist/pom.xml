@@ -2,71 +2,76 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.dhf.mvn.account</groupId>
   <artifactId>account-persist</artifactId>
-  <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
-
   <name>account-persist</name>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <springframework.version>2.5.6</springframework.version>
-  </properties>
+  <parent>
+    <groupId>com.dhf.mvn.account</groupId>
+    <artifactId>account</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <!--用于资源文件的过滤-->
+ <!--<properties>-->
+    <!--<persist.file>${project.build.directory}/persist-data.xml</persist.file>-->
+  <!--</properties>-->
 
   <dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
     <dependency>
       <groupId>dom4j</groupId>
       <artifactId>dom4j</artifactId>
       <version>1.6.1</version>
     </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>${springframework.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-beans</artifactId>
-      <version>${springframework.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>${springframework.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.7</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 
   <build>
-    <testResources>
-      <testResource>
-        <directory>src/test/resources</directory>
+    <filters>
+      <filter>src/main/filters/filter.properties</filter>
+    </filters>
+    <resources>
+      <!--
+      可以在资源文件中使用${xxx}来表示变量，之后使用多种方式填充该变量，一种是上面声明的filter，
+      创建一个属性文件保存资源文件中的变量值并声明在pom的filter中，可以声明多个。之后在下面指定
+      需要填充变量的资源目录，将filtering指定为true，就能实现过滤
+      还有一种方式是直接在这个pom的properties中声明，pom中的优先级高
+      还有一种是在命令行使用mvn命令时用-D选项指定，如mvn clean test -Dpersist.file=/tmp/persist-data.xml
+      命令行优先级最高
+      -->
+      <resource>
+        <directory>src/main/resources</directory>
         <filtering>true</filtering>
-      </testResource>
-    </testResources>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
+        <artifactId>maven-surefire-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+      <plugin>
         <artifactId>maven-resources-plugin</artifactId>
-        <configuration>
-          <encoding>UTF-8</encoding>
-        </configuration>
       </plugin>
     </plugins>
   </build>
-
 </project>

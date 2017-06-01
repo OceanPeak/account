@@ -2,39 +2,39 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.dhf.mvn.account</groupId>
+  <!--如果存在父模块则groupId可以省略使得子模块使用父模块的groupId，当然也可以重复设置，或设置和父模块不同的groupId-->
+  <!--<groupId>com.dhf.mvn.account</groupId>-->
   <artifactId>account-email</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <!--version也可以继承父模块的-->
+  <!--<version>1.0-SNAPSHOT</version>-->
   <packaging>jar</packaging>
 
   <name>account-email</name>
-  <url>http://maven.apache.org</url>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <springframework.version>2.5.6</springframework.version>
-  </properties>
+  <parent>
+    <groupId>com.dhf.mvn.account</groupId>
+    <artifactId>account</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <!-- 父模块pom的相对位置，如果不指定则默认为../pom.xml，父模块和聚合模块可以合并到一个pom中，聚合模块的pom就在../pom.xml，而该项目也把聚合和父模块合并了，所以这里省略就行了 -->
+    <!--<relativePath>../account-parent/pom.xml</relativePath>-->
+  </parent>
 
   <dependencies>
+    <!-- 继承了父模块的dependencies，父模块中声明的dependency不需要声明version和scope了 -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
-      <version>${springframework.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
-      <version>${springframework.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>${springframework.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context-support</artifactId>
-      <version>${springframework.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.mail</groupId>
@@ -50,37 +50,21 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.7</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 
   <build>
     <plugins>
+      <!--继承自父模块，如果需要覆盖父模块配置则直接声明自己的plugin就行了-->
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-source-plugin</artifactId>
+      </plugin>
+      <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
       </plugin>
     </plugins>
   </build>
-
-  <repositories>
-    <repository>
-      <id>jboss</id>
-      <name>JBoss Repository</name>
-      <url>http://repository.jboss.com/maven2/</url>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>interval:1</updatePolicy>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <layout>default</layout>
-    </repository>
-  </repositories>
 </project>
