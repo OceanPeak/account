@@ -14,6 +14,7 @@
     所以直接写account-mail就行，如果account文件夹和account-mail同一级，则下面的module需要改成../account-mail，也就是相对当前这个pom的路径-->
     <module>account-mail</module>
     <module>account-persist</module>
+    <module>account-captcha</module>
   </modules>
   
   <properties>
@@ -68,7 +69,6 @@
         </plugin>
         <!--生成源码jar-->
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
           <version>2.1.1</version>
           <executions>
@@ -83,7 +83,6 @@
         </plugin>
         <!--使用JDK8编译-->
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
             <source>1.8</source>
@@ -91,7 +90,6 @@
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
           <configuration>
             <encoding>UTF-8</encoding>

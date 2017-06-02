@@ -1,0 +1,76 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>account</artifactId>
+        <groupId>com.dhf.mvn.account</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>account-captcha</artifactId>
+    <packaging>jar</packaging>
+
+    <name>account-captcha</name>
+    <description>生成随机的验证码主键，用户使用该主键要求生成一个验证码图片，用户读取图片后将验证码主键和值交给后台进行验证</description>
+
+    <properties>
+        <kaptcha.version>2.3</kaptcha.version>
+    </properties>
+
+    <dependencies>
+        <!--用来生成验证码的开源类库，针对JDK1.4和JDK1.5提供了两个分发包，所以加了classifier-->
+        <dependency>
+            <groupId>com.google.code.kaptcha</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>${kaptcha.version}</version>
+            <classifier>jdk15</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>sonatype-forge</id>
+            <name>Sonatype Forge</name>
+            <url>http://repository.sonatype.org/content/groups/forge</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <build>
+        <!--打包时test也打包成一个jar文件，test-jar时maven-jar-plugin的一个goal，用于打包test资源，默认是没有绑定生命周期阶段的
+        test-jar没有声明phase因为插件本身默认绑定了package生命周期-->
+        <plugins>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
