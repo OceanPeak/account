@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="accountService"
+        class="com.dhf.mvn.account.service.impl.AccountServiceImpl">
+    <property name="accountCaptchaService" ref="accountCaptchaService"/>
+    <property name="accountEmailService" ref="accountEmailService"/>
+    <property name="accountPersistService" ref="accountPersistService"/>
+  </bean>
+
+</beans>

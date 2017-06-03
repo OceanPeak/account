@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.dhf.mvn.account</groupId>
@@ -15,8 +15,10 @@
     <module>account-mail</module>
     <module>account-persist</module>
     <module>account-captcha</module>
+    <module>account-service</module>
+    <module>account-web</module>
   </modules>
-  
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <springframework.version>2.5.6</springframework.version>
@@ -45,6 +47,11 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context-support</artifactId>
+        <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
         <version>${springframework.version}</version>
       </dependency>
       <dependency>
@@ -95,7 +102,50 @@
             <encoding>UTF-8</encoding>
           </configuration>
         </plugin>
+        <!--jetty-maven-plugin能用maven快速部署Java Web应用到内置的jetty容器中，同时支持热部署，自动检查代码的变化并更新
+      默认只有org.apache.maven.plugins和org.codehaus.mojo这两个groupId下的插件支持命令行简化命令如mvn help:system
+      为了是jetty也能够在mvn命令行中使用简化命令的调用方式，需要在settings.xml中设置
+      <pluginGroups>
+        <pluginGroup>org.eclipse.jetty</pluginGroup>
+      </pluginGroups>
+      这样就能使用mvn jetty:run启动项目了，默认端口8080，使用-Djetty.port=10000更改端口
+      -->
+        <plugin>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-maven-plugin</artifactId>
+          <version>9.4.5.v20170502</version>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
+
+  <repositories>
+    <repository>
+      <id>mvn repository</id>
+      <name>mvn repository</name>
+      <url>http://central.maven.org/maven2/</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>mvn repository plugin</id>
+      <name>mvn repository plugin</name>
+      <url>http://central.maven.org/maven2/</url>
+      <layout>default</layout>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
 </project>

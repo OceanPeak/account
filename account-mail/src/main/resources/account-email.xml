@@ -16,7 +16,7 @@
         <property name="password" value="${email.password}"/>
         <property name="javaMailProperties">
             <props>
-                <prop key="mail.${email.protocol}.auth">${email.auth}</prop>
+                <prop key="mail.smtp.auth">${email.auth}</prop>
             </props>
         </property>
     </bean>

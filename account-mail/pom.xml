@@ -54,6 +54,17 @@
   </dependencies>
 
   <build>
+    <!--运行jetty是发现，会出现Could not resolve placeholder的错误，所以这里直接通过filtering过滤而不用placeholder了
+    可以吧filtering改成false并在account目录下执行mvn clean install后再account-web下执行mvn jetty:run复现问题-->
+    <filters>
+      <filter>src/main/filters/filter.properties</filter>
+    </filters>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
     <plugins>
       <!--继承自父模块，如果需要覆盖父模块配置则直接声明自己的plugin就行了-->
       <plugin>
