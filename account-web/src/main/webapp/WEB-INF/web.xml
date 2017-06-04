@@ -12,7 +12,9 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <!--这里声明了Spring配置文件的路径，如果声明某个文件如classpath:/account-service.xml-->
-        <!--则getBean("accountService")是会报错显示NoSuchBean-->
+        <!--则getBean("accountService")是会报错显示NoSuchBean
+        如果尝试在下面添加classpath:/account-persist.properties也不行因为只能添加xml文件
+        其他的由于不是xml文件格式，会报org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; 前言中不允许有内容。-->
         <param-value>
             classpath:/account-email.xml
             classpath:/account-persist.xml

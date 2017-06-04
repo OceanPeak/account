@@ -109,6 +109,7 @@
         <pluginGroup>org.eclipse.jetty</pluginGroup>
       </pluginGroups>
       这样就能使用mvn jetty:run启动项目了，默认端口8080，使用-Djetty.port=10000更改端口
+      另外还有一个插件叫Cargo，能够实现自动化部署项目到Web容器如Tomcat、JBoss、Jetty等，可以看Maven实战 12.5.1
       -->
         <plugin>
           <groupId>org.eclipse.jetty</groupId>

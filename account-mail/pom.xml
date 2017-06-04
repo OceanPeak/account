@@ -1,81 +1,81 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <!--如果存在父模块则groupId可以省略使得子模块使用父模块的groupId，当然也可以重复设置，或设置和父模块不同的groupId-->
-  <!--<groupId>com.dhf.mvn.account</groupId>-->
-  <artifactId>account-email</artifactId>
-  <!--version也可以继承父模块的-->
-  <!--<version>1.0-SNAPSHOT</version>-->
-  <packaging>jar</packaging>
+    <!--如果存在父模块则groupId可以省略使得子模块使用父模块的groupId，当然也可以重复设置，或设置和父模块不同的groupId-->
+    <!--<groupId>com.dhf.mvn.account</groupId>-->
+    <artifactId>account-email</artifactId>
+    <!--version也可以继承父模块的-->
+    <!--<version>1.0-SNAPSHOT</version>-->
+    <packaging>jar</packaging>
 
-  <name>account-email</name>
-  <parent>
-    <groupId>com.dhf.mvn.account</groupId>
-    <artifactId>account</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <!-- 父模块pom的相对位置，如果不指定则默认为../pom.xml，父模块和聚合模块可以合并到一个pom中，聚合模块的pom就在../pom.xml，而该项目也把聚合和父模块合并了，所以这里省略就行了 -->
-    <!--<relativePath>../account-parent/pom.xml</relativePath>-->
-  </parent>
+    <name>account-email</name>
+    <parent>
+        <groupId>com.dhf.mvn.account</groupId>
+        <artifactId>account</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <!-- 父模块pom的相对位置，如果不指定则默认为../pom.xml，父模块和聚合模块可以合并到一个pom中，聚合模块的pom就在../pom.xml，而该项目也把聚合和父模块合并了，所以这里省略就行了 -->
+        <!--<relativePath>../account-parent/pom.xml</relativePath>-->
+    </parent>
 
-  <dependencies>
-    <!-- 继承了父模块的dependencies，父模块中声明的dependency不需要声明version和scope了 -->
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-beans</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context-support</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>javax.mail</groupId>
-      <artifactId>mail</artifactId>
-      <version>1.4.1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.icegreen</groupId>
-      <artifactId>greenmail</artifactId>
-      <version>1.3.1b</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <!-- 继承了父模块的dependencies，父模块中声明的dependency不需要声明version和scope了 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.icegreen</groupId>
+            <artifactId>greenmail</artifactId>
+            <version>1.3.1b</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
 
-  <build>
-    <!--运行jetty是发现，会出现Could not resolve placeholder的错误，所以这里直接通过filtering过滤而不用placeholder了
-    可以吧filtering改成false并在account目录下执行mvn clean install后再account-web下执行mvn jetty:run复现问题-->
-    <filters>
-      <filter>src/main/filters/filter.properties</filter>
-    </filters>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
-    <plugins>
-      <!--继承自父模块，如果需要覆盖父模块配置则直接声明自己的plugin就行了-->
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <artifactId>maven-source-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
+    <build>
+        <!--运行jetty是发现，会出现Could not resolve placeholder的错误，所以这里直接通过filtering过滤而不用placeholder了
+        可以吧filtering改成false并在account目录下执行mvn clean install后再account-web下执行mvn jetty:run复现问题-->
+        <filters>
+            <filter>src/main/filters/filter.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <!--继承自父模块，如果需要覆盖父模块配置则直接声明自己的plugin就行了-->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
